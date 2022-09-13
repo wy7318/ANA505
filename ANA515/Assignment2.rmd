@@ -1,0 +1,61 @@
+---
+title: "Assignement 2"
+author: "Minsub Lee"
+date: "2022-09-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Description of the Data
+
+This dataset I'm using for Assignment 2 is from 'https://github.com/fivethirtyeight/data/blob/master/alcohol-consumption/drinks.csv' and it is about type of drinks consumed by countries. This data has been collected by WHO and it is to find out the types of drinks and affects people's health accordingly. This is saved in CSV file type and usually CSV file use comma as delimiter. 
+
+## Reading Data
+
+```{r include = TRUE, echo=TRUE}
+drink_types <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv")
+
+```
+
+## Cleaning the Data
+
+```{r include = TRUE, echo=TRUE}
+library(dplyr)
+drink_types <- drink_types %>%
+  rename(BEER = beer_servings, SPIRIT = spirit_servings, WINE = wine_servings, Total_Liter = total_litres_of_pure_alcohol) 
+```
+
+## Characteristics of the Data
+This dataframe has `r nrow(drink_types)` rows and `r ncol(drink_types)` columns. The names of the columns and a brief description of each are in the table below: \
+`r colnames(drink_types)[1]` : List of countries involved in the research\
+`r colnames(drink_types)[2]` : Glasses of beer consumed\
+`r colnames(drink_types)[3]` : Glasses of spirit consumed\
+`r colnames(drink_types)[4]` : Glasses of wine consumed\
+`r colnames(drink_types)[5]` : Total liter of alcohol consumed\
+
+
+
+## Summary Statistics
+```{r include = TRUE, echo=TRUE}
+Non_Zero_Data <- subset(drink_types, BEER > 0 | SPIRIT > 0 | WINE>0)
+## Minimum Values
+min(Non_Zero_Data$BEER)
+min(Non_Zero_Data$SPIRIT)
+min(Non_Zero_Data$WINE)
+## Maximum Values
+max(Non_Zero_Data$BEER)
+max(Non_Zero_Data$SPIRIT)
+max(Non_Zero_Data$WINE)
+## Mean Values
+mean(Non_Zero_Data$BEER)
+mean(Non_Zero_Data$SPIRIT)
+mean(Non_Zero_Data$WINE)
+## Excluded nunmber of data 
+nrow(drink_types) - nrow(Non_Zero_Data)
+
+```
+
+
