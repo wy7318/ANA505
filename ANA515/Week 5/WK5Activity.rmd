@@ -1,0 +1,57 @@
+---
+title: "WK5 Activity"
+author: "Minsub Lee"
+date: "2022-09-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Description of the Data
+
+This dataset is from assignment 2, 'https://github.com/fivethirtyeight/data/blob/master/alcohol-consumption/drinks.csv' and it is about type of drinks consumed by countries. 
+
+
+## Reading Data
+
+```{r include = TRUE, echo=TRUE}
+drink_types <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv")
+
+```
+
+## Cleaning the Data
+
+```{r include = TRUE, echo=TRUE}
+drink_types_non_zero <- subset(drink_types, total_litres_of_pure_alcohol>0)
+
+drink_types_non_zero <- drink_types_non_zero[with(drink_types_non_zero,order(-total_litres_of_pure_alcohol)),]
+highCon <- drink_types_non_zero[1:5,]
+
+drink_types_non_zero <- drink_types_non_zero[with(drink_types_non_zero,order(total_litres_of_pure_alcohol)),]
+lowCon <- drink_types_non_zero[1:5,]
+```
+
+## Plot Data 1
+This is histogram to describe highest 5 countries alcohol cosumption.
+
+```{r include = TRUE, echo=TRUE}
+hist(highCon$total_litres_of_pure_alcohol,
+main="5 Highest Alcohol Consume Countries",
+
+xlab="Liter"
+)
+```
+
+## Plot Data 2
+This is Bar chart to describe least 5 countries alcohol cosumption.
+
+```{r include = TRUE, echo=TRUE}
+barplot(height=lowCon$total_litres_of_pure_alcohol, names=lowCon$country)
+```
+
+
+
+
+
